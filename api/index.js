@@ -14,6 +14,13 @@ const app = new Koa();
 
 app.env = 'production';
 
+app.use(
+  serve(`${__dirname}/../ui/build`, {
+    maxage: 1000 * 60 * 60 * 24 * 7,
+    gzip: true,
+  }),
+);
+
 // 用户
 app.use(
   mount(
@@ -25,15 +32,6 @@ app.use(
   ),
 );
 
-app.use(mount('/', require('../../hengda-harold-user/api/index')));
-
-app.use(
-  serve(`${__dirname}/../ui/build`, {
-    maxage: 1000 * 60 * 60 * 24 * 7,
-    gzip: true,
-  }),
-);
-
 app.use(async (ctx, next) => {
   if (ctx.request.url.indexOf('/api/') !== 0) {
     next();
@@ -43,6 +41,9 @@ app.use(async (ctx, next) => {
   await next();
   logger.info(`<-- ${ctx.request.method} ${ctx.request.url}`);
 });
+
+// 用户
+app.use(mount('/', require('../../hengda-harold-user/api/index')));
 
 const router = new Router({
   prefix: '/api',
