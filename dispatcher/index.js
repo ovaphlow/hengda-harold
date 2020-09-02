@@ -32,6 +32,17 @@ app.use(
   ),
 );
 
+// 动车组防冻排水及恢复作业记录表
+app.use(
+  mount(
+    '/ledger07',
+    serve(`${__dirname}/../../hengda-harold-ledger07/ui/build`, {
+      maxage: 1000 * 60 * 60 * 24 * 7,
+      gzip: true,
+    }),
+  ),
+);
+
 app.use(async (ctx, next) => {
   if (ctx.request.url.indexOf('/api/') !== 0) {
     next();
