@@ -56,6 +56,9 @@ app.use(async (ctx, next) => {
 // 用户
 app.use(mount('/', require('../../hengda-harold-user/api/index')));
 
+// 动车组防冻排水及恢复作业记录表
+app.use(mount('/', require('../../hengda-harold-ledger07/api/index')));
+
 const router = new Router({
   prefix: '/api',
 });
