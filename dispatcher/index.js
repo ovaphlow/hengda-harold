@@ -25,14 +25,14 @@ app.use(
 app.use(
   mount(
     '/user',
-    serve(`${__dirname}/../../hengda-harold-user/ui/build`, {
+    serve(`${__dirname}/../../hengda-user/ui/build`, {
       maxage: 1000 * 60 * 60 * 24 * 7,
       gzip: true,
     }),
   ),
 );
 
-// 动车组防冻排水及恢复作业记录表
+// harold:动车组防冻排水及恢复作业记录表
 app.use(
   mount(
     '/ledger07',
@@ -54,10 +54,10 @@ app.use(async (ctx, next) => {
 });
 
 // 用户
-app.use(mount('/', require('../../hengda-harold-user/api/index')));
+// app.use(mount('/', require('../../hengda-harold-user/api/index')));
 
 // 动车组防冻排水及恢复作业记录表
-app.use(mount('/', require('../../hengda-harold-ledger07/api/index')));
+// app.use(mount('/', require('../../hengda-harold-ledger07/api/index')));
 
 const router = new Router({
   prefix: '/api',
